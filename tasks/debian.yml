@@ -1,1 +1,6 @@
 ---
+
+- name: Install squid proxy server (debian)
+  apt:
+    name: squid
+    state: installed

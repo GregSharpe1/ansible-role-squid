@@ -8,9 +8,8 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 def test_squid_file(host):
     squid = host.file("/etc/squid/squid.conf")
-    assert squid.contains("0.0.0.0/3306")
     assert squid.user == "root"
-    assert squid.group == "squid"
+    assert squid.group == "root"
     assert squid.mode == 0o640
 
 
