@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  author: Greg Sharpe <me@gregsharpe.co.uk>
+  description: Role written for use with GregSharpe
+  company: GregSharpe.co.uk
+  license: BSD
+  min_ansible_version: 2.0
