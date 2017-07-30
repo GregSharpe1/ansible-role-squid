@@ -1,0 +1,6 @@
+---
+
+- name: Install Squid
+  yum:
+    name: squid
+    state: installed

@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: ec2
+  ssh_connection_options:
+    - -o controlMaster=auto
+    - -o controlPath=~/.ansible/cp-%r@%h-%p
+lint:
+  name: yamllint
+platforms:
+  - name: test-ansible-role-squid-1
+    image: ami-8b92b4ee
+    instance_type: t2.micro
+    vpc_subnet_id: subnet-6556940c
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: default
+  converge_sequence:
+    - create
+    - converge
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - lint
+    - verify
+    - destroy
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

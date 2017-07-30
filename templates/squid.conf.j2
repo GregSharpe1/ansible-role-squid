@@ -1,0 +1,26 @@
+# Ansible managed
+
+visible_hostname {{ squid_hostname }}
+http_port {{ squid_bind }}:{{ squid_port }}
+
+maximum_object_size 64 MB
+cache_dir aufs /var/spool/squid 1000 16 256
+
+# acl Safe_ports port 1025-65535	# unregistered ports
+acl CONNECT method CONNECT
+
+# Only allow cachemgr access from localhost
+http_access allow localhost manager
+http_access deny manager
+
+# Allow access from your local networks.
+http_access allow localnet
+http_access allow localhost
+
+# Leave coredumps in the first cache dir
+coredump_dir /var/spool/squid
+
+refresh_pattern ^ftp: 1440 20% 10080
+refresh_pattern ^gopher: 1440 0% 1440
+refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
+refresh_pattern . 0 20% 4320

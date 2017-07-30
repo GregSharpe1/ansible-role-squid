@@ -2,7 +2,30 @@
 - include: debian.yml
   when:
     ansible_os_family == Debian
+
 - include: rhel.yml
   when:
     ansible_os_family == RedHat
 
+- name: Install Squid configuration
+  template:
+    src: squid.conf.j2
+    dest: /etc/squid/squid.conf
+    owner: root
+    group: squid
+    mode: 640
+  notify:
+    restart squid
+
+- name: Open firewalld ports for Squid
+  firewalld:
+    port: "{{ squid_port }}/tcp"
+    permanent: true
+    state: enabled
+    immediate: yes
+
+- name: Enable/Start Squid service
+  service:
+    name: "{{ squid_service }}"
+    state: started
+    enabled: yes

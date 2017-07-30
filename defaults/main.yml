@@ -1,1 +1,3 @@
 ---
+ squid_port: "3306"
+ squid_bindL: "0.0.0.0"
