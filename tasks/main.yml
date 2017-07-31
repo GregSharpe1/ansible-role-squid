@@ -17,13 +17,6 @@
   notify:
     restart squid
 
-- name: Open firewalld ports for Squid
-  firewalld:
-    port: "{{ squid_port }}/tcp"
-    permanent: true
-    state: enabled
-    immediate: yes
-
 - name: Enable/Start Squid service
   service:
     name: squid
